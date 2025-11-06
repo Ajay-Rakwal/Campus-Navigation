@@ -123,18 +123,6 @@ python main.py
 
 ---
 
-## 🖼️ Suggested Screenshots
-
-| Screenshot | Description |
-|-------------|--------------|
-| Login Screen | User login/signup window connected to MySQL |
-| Map View | Full Tkinter map view showing all nodes and edges |
-| Shortest Path | Highlighted A\* route with direction arrows |
-| Reachability | Dijkstra’s reachability visualization within distance limit |
-| Saved Routes | Scrollable saved routes window from MySQL |
-
----
-
 ## 🧠 Concepts Applied
 
 | Subject | Concepts Used |
