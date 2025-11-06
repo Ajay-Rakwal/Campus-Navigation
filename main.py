@@ -3,9 +3,8 @@ from tkinter import ttk, messagebox
 import mysql.connector
 import heapq
 
-# ==============================
 # Database
-# ==============================
+
 def connect_db():
     """Create and return a MySQL connection. Adjust password if needed."""
     return mysql.connector.connect(
@@ -15,9 +14,9 @@ def connect_db():
         database="campus_navigator"
     )
 
-# ==============================
+
 # Graph Algorithms
-# ==============================
+
 def a_star(graph: dict, start: str, goal: str):
     """
     A* without heuristic (acts like Dijkstra on this small graph).
@@ -113,9 +112,9 @@ def kruskal_mst(graph: dict):
             total += w
     return mst, total
 
-# ==============================
+
 # Data: Campus Graph + Positions
-# ==============================
+
 CAMPUS_GRAPH = {
     'Front Gate': {'Library': 2, 'Canteen': 4, 'Admin': 3},
     'Admin': {'Front Gate': 3, 'Library': 2, 'Auditorium': 4, 'Research Block': 5},
@@ -148,9 +147,6 @@ NODE_POS = {
     'Back Gate': (740, 200)
 }
 
-# ==============================
-# UI Helper: Scrollable Frame (scrolls the entire page)
-# ==============================
 class ScrollablePage(tk.Frame):
     """
     A frame that makes all its child content scrollable vertically.
@@ -195,9 +191,9 @@ class ScrollablePage(tk.Frame):
         delta = int(-1 * (event.delta / 120))
         self._canvas.yview_scroll(delta, "units")
 
-# ==============================
+
 # GUI App
-# ==============================
+
 class CampusNavigatorApp:
     """
     Tkinter GUI for:
@@ -208,7 +204,7 @@ class CampusNavigatorApp:
       - Entire window scrollable (via ScrollablePage)
     """
 
-    # ---- Theme constants ----
+    # Theme constants 
     BG_MAIN = "#D4E6F1"
     BG_PANEL = "#AED6F1"
     NODE_FILL = "#2980B9"
@@ -223,7 +219,7 @@ class CampusNavigatorApp:
         self.current_user = None
         self._build_login()
 
-    # ---------------- Login ----------------
+    # Login 
     def _build_login(self):
         """Build login/sign-up screen (also inside a scrollable page for consistency)."""
         for w in self.root.winfo_children():
@@ -273,7 +269,7 @@ class CampusNavigatorApp:
         tk.Button(container, text="Sign Up", command=do_signup, bg="#27AE60", fg="white", width=10).pack(pady=5)
         tk.Button(container, text="Exit", command=self.root.quit, bg="#C0392B", fg="white", width=10).pack(pady=10)
 
-    # ---------------- Main ----------------
+    # Main 
     def _build_main(self):
         """Build main (map + controls) screen inside a scrollable page."""
         for w in self.root.winfo_children():
@@ -331,9 +327,9 @@ class CampusNavigatorApp:
         # Initial draw
         self._draw_map()
 
-    # ==============================
+    
     # Drawing
-    # ==============================
+    
     def _node_bbox(self, name: str, x: int, y: int):
         """Compute ellipse bounds based on name length so text fits nicely."""
         half_w = max(25, 10 + 4 * len(name))   # horizontal radius grows with label length
@@ -408,9 +404,9 @@ class CampusNavigatorApp:
             c.create_oval(x0, y0, x1, y1, fill=fill, outline=self.NODE_OUTLINE, width=2)
             c.create_text(x, y, text=name, fill="white", font=("Arial", 10, "bold"))
 
-    # ==============================
+    
     # Actions
-    # ==============================
+    
     def _on_find_path(self):
         """Compute A* path using selected source/destination, draw + offer to save."""
         start, goal = self.src_var.get(), self.dst_var.get()
@@ -467,9 +463,9 @@ class CampusNavigatorApp:
         else:
             self.result_label.config(text=f"No locations reachable within {budget} from {start}.")
 
-    # ==============================
+    
     # Saved Routes (SQL)
-    # ==============================
+    
     def _ensure_saved_routes_table(self):
         conn = connect_db()
         cur = conn.cursor()
@@ -559,10 +555,11 @@ class CampusNavigatorApp:
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
-# ==============================
+
 # Run
-# ==============================
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = CampusNavigatorApp(root)
     root.mainloop()
+
