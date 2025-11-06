@@ -1,0 +1,7 @@
+# Core dependency
+mysql-connector-python  # Database connection (MySQL)
+
+# Optional enhancements
+# matplotlib  # For graph visualization or analytics
+# pillow      # For adding images/icons in Tkinter
+# bcrypt      # For password hashing (security)
